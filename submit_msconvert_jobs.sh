@@ -1,3 +1,6 @@
+#Convert multiple raw files to mzml output using msconvert (run a dockerized msconvert container through apptainer)
+#TODO: customize the code to incorporate more options for filtering, threading, wavelet transform and peak picking.
+
 #!/bin/bash
 #SBATCH --job-name=msconvert_launcher
 #SBATCH --output=msconvert_launcher_%j.log
