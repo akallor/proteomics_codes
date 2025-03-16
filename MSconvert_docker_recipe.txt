@@ -1,0 +1,38 @@
+#Building A Docker image for MSConvert, converting it to an Apptainer image and then running it on #the cluster through apptainer
+
+#Create a Dockerfile
+
+FROM chambm/pwiz-skyline-i-agree-to-the-vendor-licenses:latest
+
+# Create a directory for data
+RUN mkdir -p /data
+
+# Set working directory
+WORKDIR /data
+
+# Define entrypoint to use MSConvert
+ENTRYPOINT ["wine", "msconvert"]
+
+# Default command (can be overridden)
+CMD ["—help"]
+
+#Build the Docker Image
+
+docker build -t msconvert:latest .
+
+#Save the Docker image to a file
+
+docker save msconvert:latest -o msconvert.tar
+
+#Copy the Docker image to the computing cluster (example shown below)
+
+scp msconvert.tar ashwin1988@mefisto:~
+
+#Login to the cluster, naviagate to where you copied the image and then convert the Docker image to #Apptainer
+
+apptainer build msconvert.sif docker-archive://msconvert.tar
+
+#Run Msconvert with apptainer
+
+apptainer run --bind /path/to/data:/data msconvert.sif input.raw --format mzML
+
