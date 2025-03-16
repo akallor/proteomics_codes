@@ -1,7 +1,7 @@
 #!/usr/bin bash
 #Download and install apptainer (and Golang, since apptainer requires Golang to run)
-#For Red Hat and other Debian-based OS: use dnf
-#For Ubuntu/other non-Debian-based OS: use apt
+#For Red Hat and other non-Debian-based distributions: use dnf
+#For Ubuntu/other Debian-based distributions: use apt
 
 #Apt-recipe
 
