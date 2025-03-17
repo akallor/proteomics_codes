@@ -1,0 +1,14 @@
+FROM mcr.microsoft.com/windows/servercore:ltsc2022
+
+# Set the working directory
+WORKDIR C:\\Users\\Public
+
+# Copy Skyline files
+COPY Skyline C:\\Users\\Public\\Skyline
+COPY SkylineRunner.exe C:\\Users\\Public\\SkylineRunner.exe
+
+# Set environment variables
+ENV USERPROFILE C:\\Users\\Public
+
+# Use cmd.exe to execute Skyline.exe directly instead of SkylineRunner.exe
+ENTRYPOINT ["cmd", "/c", "C:\\Users\\Public\\Skyline\\Skyline.exe"]
