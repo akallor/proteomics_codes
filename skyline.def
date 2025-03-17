@@ -1,0 +1,45 @@
+Bootstrap: docker
+From: ubuntu:22.04
+
+%environment
+    export WINEDEBUG=-all
+    export WINEPREFIX=/opt/wine/prefix
+    export PATH=$PATH:/opt/wine/bin
+
+%post
+    # Install necessary packages
+    apt-get update
+    apt-get install -y --no-install-recommends \
+        wget \
+        ca-certificates \
+        gnupg \
+        software-properties-common \
+        winbind
+
+    # Enable 32-bit architecture (required for Wine)
+    dpkg --add-architecture i386
+
+    # Install Wine using the WineHQ repository
+    mkdir -pm755 /etc/apt/keyrings
+    wget -O /etc/apt/keyrings/winehq-archive.key https://dl.winehq.org/wine-builds/winehq.key
+    wget -NP /etc/apt/sources.list.d/ https://dl.winehq.org/wine-builds/ubuntu/dists/jammy/winehq-jammy.sources
+
+    # Update and install Wine
+    apt-get update
+    apt-get install -y --install-recommends winehq-stable
+
+    # Create directories
+    mkdir -p /opt/skyline
+    mkdir -p /opt/wine/prefix
+
+%files
+    # This assumes you're building with your Skyline directory available
+    Skyline /opt/skyline
+
+%runscript
+    # Run Skyline with Wine
+    wine /opt/skyline/SkylineRunner.exe "$@"
+
+%help
+    This container runs Skyline proteomics software using Wine.
+    Usage: apptainer run skyline.sif [options]
