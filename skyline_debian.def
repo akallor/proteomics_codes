@@ -1,0 +1,24 @@
+Bootstrap: docker
+From: debian:11
+
+%post
+    # Install wine dependencies
+    apt-get update
+    apt-get install -y --no-install-recommends \
+        wget gnupg2 software-properties-common
+    
+    # Enable 32-bit architecture
+    dpkg --add-architecture i386
+    
+    # Add Wine repository
+    wget -nc https://dl.winehq.org/wine-builds/winehq.key
+    apt-key add winehq.key
+    add-apt-repository 'deb https://dl.winehq.org/wine-builds/debian/ bullseye main'
+    
+    # Install Wine
+    apt-get update
+    apt-get install -y --install-recommends winehq-stable
+    
+    # Create directories
+    mkdir -p /opt/skyline
+    mkdir -p /opt/wine/prefix
