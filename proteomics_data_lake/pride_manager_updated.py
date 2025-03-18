@@ -1,3 +1,8 @@
+"""
+Download datasets from the PRIDE url: https://www.ebi.ac.uk/pride/ws/archive/v3/webjars/swagger-ui/index.html#/projects/projects based on querying the /search/projects API
+Then upload them to the existing AWS S3 bucket (need to install boto3 to work between the local machine and the S3 bucket).
+"""
+
 import requests
 import json
 import os
