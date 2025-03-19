@@ -1,4 +1,5 @@
 # Install and configure AWS CLI
+#The key cannot be shown for security reasons.
 pip install awscli
 #The secret key cannot be added here due to security reasons
 aws configure  # Enter your AWS credentials when prompted 

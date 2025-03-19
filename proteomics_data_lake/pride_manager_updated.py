@@ -1,3 +1,11 @@
+<<<<<<< HEAD
+=======
+"""
+Download datasets from the PRIDE url: https://www.ebi.ac.uk/pride/ws/archive/v3/webjars/swagger-ui/index.html#/projects/projects based on querying the /search/projects API
+Then upload them to the existing AWS S3 bucket (need to install boto3 to work between the local machine and the S3 bucket).
+"""
+
+>>>>>>> 9875bb40d42f6f5a541d7b86756af500b20d3efc
 import requests
 import json
 import os
@@ -8,6 +16,8 @@ import urllib.parse
 import urllib.request
 import sys
 from tqdm import tqdm
+
+print("This is the merged version that includes both changes")
 
 class PrideDatasetManager:
     def __init__(self, output_dir="./pride_data", s3_bucket=None):
